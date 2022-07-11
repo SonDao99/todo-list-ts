@@ -1,7 +1,7 @@
 import React from "react";
 import { ACTION_TYPE, LIST_ITEM } from "../../App";
 
-type PROPS_TYPES = {
+interface PROPS_TYPES {
   dispatch: React.Dispatch<ACTION_TYPE>;
   list: LIST_ITEM[];
 };
@@ -17,11 +17,11 @@ const List = (props: PROPS_TYPES): JSX.Element => {
           return(
             <div key={todo.id}>
               <input value={todo.item} 
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   dispatch({type:"edit", payload:{id: todo.id, item: e.target.value, editing:true}});
                 }}
 
-                onKeyDown={(e) => {
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                   if (e.key === "Enter") {
                     dispatch({type:"edit", payload:{id: todo.id, item: todo.item, editing:false}});
                   }

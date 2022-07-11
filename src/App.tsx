@@ -6,7 +6,11 @@ import './App.css';
 import Input from "./components/Input/Input";
 import List from "./components/List/List";
 
-export type LIST_ITEM = {id: string, item: string, editing: boolean};
+export interface LIST_ITEM {
+  id: string; 
+  item: string;
+  editing: boolean;
+};
 
 export type ACTION_TYPE = 
   | {type: "add"; payload: string;}
