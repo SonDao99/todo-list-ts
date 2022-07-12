@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react';
 import './App.css';
 
-//import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import Input from "./components/Input/Input";
 import List from "./components/List/List";
@@ -22,7 +22,7 @@ const initialList: LIST_ITEM[] = [];
 const listReducer = (state: LIST_ITEM[], action: ACTION_TYPE): LIST_ITEM[] => {
   switch (action.type) {
     case "add":
-      return state.concat({id: (new Date()).toString(), item: action.payload, editing: false});
+      return state.concat({id: uuidv4(), item: action.payload, editing: false});
     case "delete":
       return state.filter(item => item.id !== action.payload);
     case "edit":
