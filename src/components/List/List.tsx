@@ -1,5 +1,7 @@
 import React from "react";
 import { ACTION_TYPE, LIST_ITEM } from "../../App";
+import ListItemEditing from "../ListItemEditing/ListItemEditing";
+import ListItem from "../ListItem/ListItem";
 
 interface PROPS_TYPES {
   dispatch: React.Dispatch<ACTION_TYPE>;
@@ -14,36 +16,10 @@ const List = (props: PROPS_TYPES): JSX.Element => {
     <>
       {list.map((todo: LIST_ITEM) => {
         if (todo.editing) {
-          return(
-            <div key={todo.id}>
-              <input value={todo.item} 
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  dispatch({type:"edit", payload:{id: todo.id, item: e.target.value, editing:true}});
-                }}
-
-                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                  if (e.key === "Enter") {
-                    dispatch({type:"edit", payload:{id: todo.id, item: todo.item, editing:false}});
-                  }
-                }}
-              >
-              </input>
-              
-              <button onClick={() => dispatch({type:"edit", payload:{id: todo.id, item: todo.item, editing:false}})}>
-                Update
-              </button>
-              <button onClick={() => dispatch({type:"delete", payload:todo.id})}>Delete</button>
-            </div>
-          ) 
+          return <ListItemEditing key={todo.id} dispatch={dispatch} todo={todo} />
         }
 
-        return(
-          <div key={todo.id}>
-            <div>{todo.item}</div>
-            <button onClick={() => dispatch({type:"edit", payload:{id: todo.id, item: todo.item, editing:true}})}>Edit</button>
-            <button onClick={() => dispatch({type:"delete", payload:todo.id})}>Delete</button>
-          </div>
-        )
+        return <ListItem key={todo.id} dispatch={dispatch} todo={todo} />
       })}
     </>
   )
