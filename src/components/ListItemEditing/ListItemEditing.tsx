@@ -10,17 +10,17 @@ const ListItemEditing = (props: PROPS_TYPES): JSX.Element => {
   const {dispatch, todo} = props;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({type:"edit", payload:{id: todo.id, item: e.target.value, editing:true}});
+    dispatch({type:"edit", payload:{...todo, item: e.target.value, editing:true}});
   }
 
   const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      dispatch({type:"edit", payload:{id: todo.id, item: todo.item, editing:false}});
+      dispatch({type:"toggleEdit", payload:todo.id});
     }
   }
 
   const handleClickUpdate = () => {
-    dispatch({type:"edit", payload:{id: todo.id, item: todo.item, editing:false}});
+    dispatch({type:"toggleEdit", payload:todo.id});
   }
 
   const handleClickDelete = () => {

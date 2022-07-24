@@ -9,8 +9,12 @@ interface PROPS_TYPES {
 const ListItem = (props: PROPS_TYPES): JSX.Element => {
   const {dispatch, todo} = props;
   
+  const handleClickTodo = () => {
+    dispatch({type:"toggleComplete", payload:todo.id});
+  }
+
   const handleClickEdit = () => {
-    dispatch({type:"edit", payload: {id: todo.id, item: todo.item, editing:true}});
+    dispatch({type:"toggleEdit", payload:todo.id});
   }
 
   const handleClickDelete = () => {
@@ -19,7 +23,12 @@ const ListItem = (props: PROPS_TYPES): JSX.Element => {
 
   return(
     <div>
-      <div>{todo.item}</div>
+      <div
+        onClick={() => handleClickTodo()} 
+        style={todo.complete?{textDecoration: "line-through"}:{textDecoration: "none"}}
+      >
+        {todo.item}
+      </div>
       <button onClick={() => handleClickEdit()}>Edit</button>
       <button onClick={() => handleClickDelete()}>Delete</button>
     </div>
