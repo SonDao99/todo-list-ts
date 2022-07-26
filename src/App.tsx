@@ -32,14 +32,14 @@ const listReducer = (state: LIST_ITEM[], action: ACTION_TYPE): LIST_ITEM[] => {
     case "toggleEdit":
       return state.map(item => {
         if (item.id === action.payload) {
-          return {...item, editing:!item.editing};
+          return {...item, editing: !item.editing};
         }
         return item;
       });
     case "toggleComplete":
       return state.map(item => {
         if (item.id === action.payload) {
-          return {...item, complete:!item.complete};
+          return {...item, complete: !item.complete};
         }
         return item;
       });
