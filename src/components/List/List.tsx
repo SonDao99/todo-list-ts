@@ -1,25 +1,21 @@
 import React from "react";
-import { ACTION_TYPE, LIST_ITEM } from "../../App";
+import { useAppSelector } from "../../app/hooks";
+import { selectTodo } from "../../features/todo/todoSlice";
+import { LIST_ITEM } from "../../features/todo/todoSlice";
 import ListItemEditing from "../ListItemEditing/ListItemEditing";
 import ListItem from "../ListItem/ListItem";
 
-interface PROPS_TYPES {
-  dispatch: React.Dispatch<ACTION_TYPE>;
-  list: LIST_ITEM[];
-};
-
-
-const List = (props: PROPS_TYPES): JSX.Element => {
-  const {list, dispatch} = props;
+const List = (): JSX.Element => {
+  const list = useAppSelector(selectTodo)
 
   return(
     <>
       {list.map((todo: LIST_ITEM) => {
         if (todo.editing) {
-          return <ListItemEditing key={todo.id} dispatch={dispatch} todo={todo} />
+          return <ListItemEditing key={todo.id} todo={todo}/>
         }
 
-        return <ListItem key={todo.id} dispatch={dispatch} todo={todo} />
+        return <ListItem key={todo.id} todo={todo}/>
       })}
     </>
   )

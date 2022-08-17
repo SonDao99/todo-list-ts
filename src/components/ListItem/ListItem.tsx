@@ -1,24 +1,27 @@
-import React, {} from "react";
-import { ACTION_TYPE, LIST_ITEM } from "../../App";
+import React from "react";
+import { useAppDispatch } from "../../app/hooks";
+import { toggleComplete, toggleEdit, remove } from "../../features/todo/todoSlice";
+import { LIST_ITEM } from "../../features/todo/todoSlice";
 
 interface PROPS_TYPES {
-  dispatch: React.Dispatch<ACTION_TYPE>;
   todo: LIST_ITEM;
 };
 
 const ListItem = (props: PROPS_TYPES): JSX.Element => {
-  const {dispatch, todo} = props;
+  const {todo} = props;
+  //const todo = useAppSelector(selectTodo);
+  const dispatch = useAppDispatch();
   
   const handleClickTodo = () => {
-    dispatch({type:"toggleComplete", payload:todo.id});
+    dispatch(toggleComplete(todo.id));
   }
 
   const handleClickEdit = () => {
-    dispatch({type:"toggleEdit", payload:todo.id});
+    dispatch(toggleEdit(todo.id));
   }
 
   const handleClickDelete = () => {
-    dispatch({type:"delete", payload:todo.id});
+    dispatch(remove(todo.id));
   }
 
   return(

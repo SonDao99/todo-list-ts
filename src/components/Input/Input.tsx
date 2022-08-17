@@ -1,12 +1,16 @@
 import React, {useState} from "react";
-import { ACTION_TYPE } from "../../App";
+import { useAppDispatch } from "../../app/hooks";
+import { add } from "../../features/todo/todoSlice";
+//import { ACTION_TYPE } from "../../App";
 
-interface PROPS_TYPES {
-  dispatch: React.Dispatch<ACTION_TYPE>;
-};
+// interface PROPS_TYPES {
+//   dispatch: React.Dispatch<ACTION_TYPE>;
+// };
 
-const Input = (props: PROPS_TYPES): JSX.Element => {
-  const {dispatch} = props;
+const Input = (): JSX.Element => {
+//  const {dispatch} = props;
+  const dispatch = useAppDispatch();
+
 
   const [input, setInput] = useState(''); 
 
@@ -16,7 +20,8 @@ const Input = (props: PROPS_TYPES): JSX.Element => {
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === "Enter") {
-      dispatch({type: "add", payload: input});
+      //dispatch({type: "add", payload: input});
+      dispatch(add(input));
       setInput('');
     }
   }
@@ -31,7 +36,8 @@ const Input = (props: PROPS_TYPES): JSX.Element => {
       </input>
 
       <button onClick={() => {
-        dispatch({type: "add", payload: input});
+        //dispatch({type: "add", payload: input});
+        dispatch(add(input));
         setInput('');
       }}>
         +

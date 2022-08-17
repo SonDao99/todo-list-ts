@@ -1,30 +1,32 @@
 import React, {} from "react";
-import { ACTION_TYPE, LIST_ITEM } from "../../App";
+import { LIST_ITEM } from "../../features/todo/todoSlice";
+import { useAppDispatch} from "../../app/hooks";
+import { remove, toggleEdit, edit } from "../../features/todo/todoSlice";
 
 interface PROPS_TYPES {
-  dispatch: React.Dispatch<ACTION_TYPE>;
   todo: LIST_ITEM;
 };
 
 const ListItemEditing = (props: PROPS_TYPES): JSX.Element => {
-  const {dispatch, todo} = props;
+  const {todo} = props;
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({type:"edit", payload:{...todo, item: e.target.value, editing:true}});
+    dispatch(edit({...todo, item: e.target.value, editing:true}));
   }
 
   const handlePressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      dispatch({type:"toggleEdit", payload:todo.id});
+      dispatch(toggleEdit(todo.id));
     }
   }
 
   const handleClickUpdate = () => {
-    dispatch({type:"toggleEdit", payload:todo.id});
+    dispatch(toggleEdit(todo.id));
   }
 
   const handleClickDelete = () => {
-    dispatch({type:"delete", payload:todo.id});
+    dispatch(remove(todo.id));
   }
   
   return(
