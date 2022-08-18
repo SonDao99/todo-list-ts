@@ -1,24 +1,27 @@
+import { observer } from "mobx-react-lite";
 import React, {} from "react";
-import { ACTION_TYPE, LIST_ITEM } from "../../App";
+//import { ACTION_TYPE, LIST_ITEM } from "../../App";
+import { LIST_ITEM } from "../../store/store";
+import { todoStore } from "../../store/store";
+
 
 interface PROPS_TYPES {
-  dispatch: React.Dispatch<ACTION_TYPE>;
   todo: LIST_ITEM;
 };
 
 const ListItem = (props: PROPS_TYPES): JSX.Element => {
-  const {dispatch, todo} = props;
+  const {todo} = props;
   
   const handleClickTodo = () => {
-    dispatch({type:"toggleComplete", payload:todo.id});
+    todoStore.toggleComplete(todo.id);
   }
 
   const handleClickEdit = () => {
-    dispatch({type:"toggleEdit", payload:todo.id});
+    todoStore.toggleEdit(todo.id);
   }
 
   const handleClickDelete = () => {
-    dispatch({type:"delete", payload:todo.id});
+    todoStore.removeTodo(todo.id);
   }
 
   return(
@@ -35,4 +38,4 @@ const ListItem = (props: PROPS_TYPES): JSX.Element => {
   )
 }
 
-export default ListItem;
+export default observer(ListItem);

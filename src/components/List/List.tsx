@@ -1,28 +1,24 @@
 import React from "react";
-import { ACTION_TYPE, LIST_ITEM } from "../../App";
+import { LIST_ITEM } from "../../store/store";
 import ListItemEditing from "../ListItemEditing/ListItemEditing";
 import ListItem from "../ListItem/ListItem";
-
-interface PROPS_TYPES {
-  dispatch: React.Dispatch<ACTION_TYPE>;
-  list: LIST_ITEM[];
-};
+import { observer } from "mobx-react";
+import { todoStore } from "../../store/store";
 
 
-const List = (props: PROPS_TYPES): JSX.Element => {
-  const {list, dispatch} = props;
+const List = (): JSX.Element => {
 
   return(
     <>
-      {list.map((todo: LIST_ITEM) => {
+      {todoStore.list.map((todo: LIST_ITEM) => {
         if (todo.editing) {
-          return <ListItemEditing key={todo.id} dispatch={dispatch} todo={todo} />
+          return <ListItemEditing key={todo.id} todo={todo} />
         }
 
-        return <ListItem key={todo.id} dispatch={dispatch} todo={todo} />
+        return <ListItem key={todo.id} todo={todo} />
       })}
     </>
   )
 }
 
-export default List;
+export default observer(List);

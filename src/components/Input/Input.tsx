@@ -1,12 +1,8 @@
+import { observer } from "mobx-react";
+import { todoStore } from "../../store/store";
 import React, {useState} from "react";
-import { ACTION_TYPE } from "../../App";
 
-interface PROPS_TYPES {
-  dispatch: React.Dispatch<ACTION_TYPE>;
-};
-
-const Input = (props: PROPS_TYPES): JSX.Element => {
-  const {dispatch} = props;
+const Input = (): JSX.Element => {
 
   const [input, setInput] = useState(''); 
 
@@ -16,7 +12,7 @@ const Input = (props: PROPS_TYPES): JSX.Element => {
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === "Enter") {
-      dispatch({type: "add", payload: input});
+      todoStore.addTodo(input);
       setInput('');
     }
   }
@@ -31,7 +27,7 @@ const Input = (props: PROPS_TYPES): JSX.Element => {
       </input>
 
       <button onClick={() => {
-        dispatch({type: "add", payload: input});
+        todoStore.addTodo(input);
         setInput('');
       }}>
         +
@@ -40,4 +36,4 @@ const Input = (props: PROPS_TYPES): JSX.Element => {
   )
 }
 
-export default Input;
+export default observer(Input);
